@@ -9,7 +9,7 @@ export default function NavLabel({ icon, name, url }) {
         className={({ isActive }) =>
           isActive
             ? "gap-3 flex flex-row items-center font-semibold font-MuseoModerno p-2 rounded-lg bg-navbarActive text-black "
-            : "gap-3 flex flex-row items-center font-MuseoModerno p-2  rounded-lg hover:bg-navbarHover text-navbarInactiveLink "
+            : "gap-3 flex flex-row items-center font-MuseoModerno p-2  rounded-lg hover:bg-navbarHover hover:text-gray-800 text-navbarInactiveLink "
         }
       >
         {icon}

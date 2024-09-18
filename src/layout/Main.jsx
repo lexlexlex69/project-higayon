@@ -18,7 +18,7 @@ export default function Main() {
         <Outlet />
       </main>
       <aside
-        className=" z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        className=" z-40 w-72 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar"
       >
         <SidebarRigth />

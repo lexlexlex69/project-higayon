@@ -5,17 +5,17 @@ import FriendMiniProfile from "./friends/FriendMiniProfileContainer"
 export default function SidebarRigth() {
   return (
     <>
-      <div className="flex flex-col gap-3 h-full px-3 py-4 overflow-y-auto  dark:bg-gray-800 font-MuseoModerno border-l-2 border-gray-200">
+      <div className="flex flex-col gap-3 h-full px-3 py-4 overflow-y-auto  dark:bg-gray-800 font-MuseoModerno border-l-4 border-gray-200">
         <button
           id="dropdownAvatarNameButton"
           data-dropdown-toggle="dropdownAvatarName"
-          className="bg-slate-200 w-full flex items-center justify-between text-lg pe-1 font-medium text-gray-900 rounded-sm hover:text-blue-600"
+          className="bg-slate-200 w-full flex items-center justify-between text-lg pe-1 font-medium text-gray-900 rounded-full hover:text-blue-600"
           type="button"
           onClick={() => console.log("onclick")}
         >
           <span className="flex items-center">
             <img
-              className="w-12 h-12 me-2 rounded-sm object-cover border-dashed border-2 border-gray-400 p-1"
+              className="w-12 h-12 me-2 rounded-full object-cover border-dashed border-2 border-gray-400 p-1"
               src="/passporte.jpg"
               alt="user photo"
             />
