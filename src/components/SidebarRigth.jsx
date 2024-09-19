@@ -1,21 +1,23 @@
 import { ChevronDown, UserRoundPlus } from "lucide-react"
 import { navlabels } from "../data/navlabels"
 import FriendMiniProfile from "./friends/FriendMiniProfileContainer"
+import { useSidebarContext } from "../SidebarContext"
 
 export default function SidebarRigth() {
+  const { toggle, close, isSmallOpen } = useSidebarContext()
   return (
     <>
-      <div className="flex flex-col gap-3 h-full px-3 py-4 overflow-y-auto  dark:bg-gray-800 font-MuseoModerno border-l-4 border-gray-200">
+      <div className="flex flex-col gap-3 h-full px-3 py-4 overflow-y-auto bg-white  dark:bg-gray-800 font-MuseoModerno  ">
         <button
           id="dropdownAvatarNameButton"
           data-dropdown-toggle="dropdownAvatarName"
-          className="bg-slate-200 w-full flex items-center justify-between text-lg pe-1 font-medium text-gray-900 rounded-full hover:text-blue-600"
+          className={`bg-slate-200 w-full flex items-center justify-between text-lg pe-1 font-medium text-gray-900 rounded-full hover:text-blue-600`}
           type="button"
-          onClick={() => console.log("onclick")}
+          onClick={toggle}
         >
           <span className="flex items-center">
             <img
-              className="w-12 h-12 me-2 rounded-full object-cover border-dashed border-2 border-gray-400 p-1"
+              className=" w-12 h-12 me-2 rounded-full object-cover border-dashed border-2 border-gray-400 p-1"
               src="/passporte.jpg"
               alt="user photo"
             />
@@ -23,10 +25,19 @@ export default function SidebarRigth() {
           </span>
           <ChevronDown size={30} />
         </button>
+
         {/* dri dapat ehide */}
+        {isSmallOpen && (
+          <div
+            onClick={close}
+            className="fixed right-0 top-0 w-screen h-screen opacity-50"
+          />
+        )}
         <div
           id="dropdownAvatarName"
-          className="hidden fixed right-5 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+          className={`${
+            !isSmallOpen && "hidden"
+          } fixed top-[4.5rem] right-5 z-[999] bg-white divide-y divide-gray-100 rounded-lg shadow-[-10px_10px_1px_0px_#4b4b4b1f] w-44 dark:bg-gray-700 dark:divide-gray-600 border-2 border-solid border-gray-500`}
         >
           <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
             <div className="font-medium ">Lecks</div>
