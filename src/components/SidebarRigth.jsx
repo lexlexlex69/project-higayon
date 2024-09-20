@@ -2,6 +2,7 @@ import { ChevronDown, UserRoundPlus } from "lucide-react"
 import { navlabels } from "../data/navlabels"
 import FriendMiniProfile from "./friends/FriendMiniProfileContainer"
 import { useSidebarContext } from "../SidebarContext"
+import { NavLink } from "react-router-dom"
 
 export default function SidebarRigth() {
   const { toggle, close, isSmallOpen } = useSidebarContext()
@@ -48,18 +49,20 @@ export default function SidebarRigth() {
             aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
           >
             <li>
-              <a
-                href="#"
+              <NavLink
+                to="/profile"
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                onClick={close}
               >
                 Profile
-              </a>
+              </NavLink>
             </li>
           </ul>
           <div className="py-2">
             <a
               href="#"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              onClick={close}
             >
               Sign out
             </a>

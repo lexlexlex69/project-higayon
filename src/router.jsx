@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom"
 import Search from "./pages/Search"
 import Explore from "./pages/Explore"
-import Home from "./pages/home"
+import Home from "./pages/Home"
 import AddPost from "./pages/AddPost"
 import Main from "./layout/Main"
 import Notification from "./pages/Notification"
+import Profile from "./pages/Profile"
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/addPost",
         element: <AddPost />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },

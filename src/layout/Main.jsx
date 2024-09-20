@@ -1,10 +1,15 @@
 import { Outlet } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import SidebarRigth from "../components/SidebarRigth"
 import { SidebarProvider, useSidebarContext } from "../SidebarContext"
+import PostPreview from "../pages/overlay/PostPreview"
+import { useOverlayContext } from "../OverlayContext"
 
 export default function Main() {
   const { close, isSmallOpen } = useSidebarContext()
+  const { isPostPreviewOpen } = useOverlayContext()
+  const location = useLocation()
   return (
     <div className="flex flex-row justify-between w-full h-full">
       <nav
@@ -18,9 +23,15 @@ export default function Main() {
       <main className="flex-1">
         <Outlet />
       </main>
-      <aside className="z-40 w-72 h-screen " aria-label="Sidebar">
+      <aside
+        className={`z-40 w-72 h-screen ${
+          location.pathname === "/profile" && "hidden"
+        }`}
+        aria-label="Sidebar"
+      >
         <SidebarRigth />
       </aside>
+      {isPostPreviewOpen && <PostPreview />}
     </div>
   )
 }
