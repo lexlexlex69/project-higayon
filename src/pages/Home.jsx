@@ -11,8 +11,8 @@ export default function Home() {
         <MainUpper />
       </div>
       <div className="flex flex-col items-center pt-10 gap-[5rem]">
-        {navlabels.map(() => (
-          <Post />
+        {navlabels.map((navlabel) => (
+          <Post key={navlabel.name} />
         ))}
         <p className="pb-[3rem]">
           You've reached the bedrock{" "}

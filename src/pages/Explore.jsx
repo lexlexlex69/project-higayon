@@ -11,8 +11,8 @@ export default function Explore() {
       <div className="flex flex-col gap-[3rem] px-10">
         <p className="text-navbarInactiveLink">Available Posts:</p>
         <div className="grid gap-[5rem] grid-cols-[repeat(auto-fill,minmax(250px,1fr))] px-[3rem]">
-          {navlabels.map(() => (
-            <Post purpose={"Explore"} name={"asdfasdf"} />
+          {navlabels.map((asd) => (
+            <Post purpose={"Explore"} name={"asdfasdf"} key={asd.name} />
           ))}
         </div>
       </div>

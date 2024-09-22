@@ -9,8 +9,8 @@ export default function Notification() {
         <MainUpper />
       </div>
       <div className="flex flex-col items-center pt-10 ">
-        {navlabels.map(() => (
-          <NotificationForm />
+        {navlabels.map((asd) => (
+          <NotificationForm purpose="Notifications" key={asd.name} />
         ))}
       </div>
     </div>

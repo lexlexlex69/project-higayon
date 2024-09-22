@@ -1,3 +1,13 @@
+import { navlabels } from "../../data/navlabels"
+import Post from "../friends/Post"
+import NotificationForm from "../notification/NotificationForm"
+
 export default function ProfileActivities() {
-  return <h1>Profile ProfileActivities</h1>
+  return (
+    <div className="flex flex-col items-center pt-10 ">
+      {navlabels.map(() => (
+        <NotificationForm purpose="Profile Activities" />
+      ))}
+    </div>
+  )
 }

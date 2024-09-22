@@ -11,8 +11,8 @@ export default function Search() {
       <div className=" px-10">
         <p className="text-navbarInactiveLink">Search Result:</p>
         <div className="grid gap-6 grid-cols-[repeat(auto-fill,minmax(320px,1fr))] ">
-          {navlabels.map(() => (
-            <FriendMiniProfileContent name={"asdfasdf"} />
+          {navlabels.map((asd) => (
+            <FriendMiniProfileContent name={"asdfasdf"} key={asd.name} />
           ))}
         </div>
       </div>

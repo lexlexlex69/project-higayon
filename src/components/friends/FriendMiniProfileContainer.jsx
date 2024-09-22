@@ -11,7 +11,11 @@ export default function FriendMiniProfile({ title }) {
       </span>
       <div className="flex gap-3 flex-col max-h-48 overflow-auto scrollbar-hidden">
         {navlabels.map((sdf) => (
-          <FriendMiniProfileContent name="Username" title={title} />
+          <FriendMiniProfileContent
+            name="Username"
+            title={title}
+            key={sdf.name}
+          />
         ))}
       </div>
     </div>

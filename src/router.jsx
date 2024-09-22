@@ -4,10 +4,13 @@ import Explore from "./pages/Explore"
 import Home from "./pages/Home"
 import AddPost from "./pages/AddPost"
 import Main from "./layout/Main"
+import Guest from "./layout/Guest"
 import Notification from "./pages/Notification"
 import Profile from "./pages/Profile"
 import ProfilePosts from "./components/profile/ProfilePosts"
 import ProfileActivities from "./components/profile/ProfileActivities"
+import Login from "./layout/guest/Login"
+import Signup from "./layout/guest/Signup"
 
 const router = createBrowserRouter([
   {
@@ -51,6 +54,20 @@ const router = createBrowserRouter([
             element: <Navigate to="/profile/posts/" replace />,
           },
         ],
+      },
+    ],
+  },
+  {
+    path: "/guest",
+    element: <Guest />,
+    children: [
+      {
+        path: "/guest/login",
+        element: <Login />,
+      },
+      {
+        path: "/guest/signup",
+        element: <Signup />,
       },
     ],
   },
