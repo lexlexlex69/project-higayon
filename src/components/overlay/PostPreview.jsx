@@ -8,7 +8,7 @@ export default function PostPreview() {
       onClick={toggle}
       className="fixed flex justify-center items-center z-[999] right-0 top-0 w-screen h-screen bg-overlayBG "
     >
-      <Post />
+      <Post purpose={"Preview Post"} />
     </div>
   )
 }

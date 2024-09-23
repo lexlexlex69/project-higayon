@@ -1,6 +1,12 @@
-import { Outlet } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom"
+import { useAuth } from "../context/AuthProvider"
 
 export default function Guest() {
+  const { token } = useAuth()
+
+  if (token) {
+    return <Navigate to="/" />
+  }
   return (
     <div className="bg-gray-100 h-screen w-screen flex items-center justify-center ">
       <div className="bg-white flex items-center border-2 border-gray-400 rounded-md w-[43rem] min-h-[40%] py-6">

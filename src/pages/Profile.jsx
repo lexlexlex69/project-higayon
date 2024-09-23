@@ -2,7 +2,7 @@ import { NavLink, Outlet, useLocation } from "react-router-dom"
 
 export default function Profile() {
   const location = useLocation()
-  const isPostsPage = location.pathname.includes("/profile/posts")
+  const isPostsPage = location.pathname.includes("posts")
   return (
     <div className="flex flex-col h-screen px-10 pt-10 overflow-auto">
       <div className=" h-[50%] flex flex-col items-center justify-center gap-16 font-MuseoModerno border-b-2">

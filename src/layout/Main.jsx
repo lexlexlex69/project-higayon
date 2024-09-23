@@ -1,16 +1,24 @@
-import { Outlet } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom"
 import { NavLink, useLocation } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import SidebarRigth from "../components/SidebarRigth"
 import { SidebarProvider, useSidebarContext } from "../SidebarContext"
 import PostPreview from "../components/overlay/PostPreview"
 import { useOverlayContext } from "../OverlayContext"
+import { useAuth } from "../context/AuthProvider"
 
 export default function Main() {
   const { close, isSmallOpen } = useSidebarContext()
   const { isPostPreviewOpen } = useOverlayContext()
   const location = useLocation()
   const isProfileRoute = location.pathname.includes("/profile")
+
+  const { token } = useAuth()
+
+  if (!token) {
+    return <Navigate to="/login" />
+  }
+
   return (
     <div className="flex flex-row justify-between w-full h-full">
       <nav

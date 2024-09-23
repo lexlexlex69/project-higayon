@@ -6,13 +6,16 @@ import { RouterProvider } from "react-router-dom"
 import router from "./router.jsx"
 import { SidebarProvider } from "./SidebarContext.jsx"
 import { OverlayProvider } from "./OverlayContext.jsx"
+import { ContextProvider } from "./context/AuthProvider.jsx"
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <OverlayProvider>
-      <SidebarProvider>
-        <RouterProvider router={router} />
-      </SidebarProvider>
-    </OverlayProvider>
+    <ContextProvider>
+      <OverlayProvider>
+        <SidebarProvider>
+          <RouterProvider router={router} />
+        </SidebarProvider>
+      </OverlayProvider>
+    </ContextProvider>
   </StrictMode>
 )

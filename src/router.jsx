@@ -58,15 +58,15 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/guest",
+    path: "/",
     element: <Guest />,
     children: [
       {
-        path: "/guest/login",
+        path: "/login",
         element: <Login />,
       },
       {
-        path: "/guest/signup",
+        path: "/signup",
         element: <Signup />,
       },
     ],

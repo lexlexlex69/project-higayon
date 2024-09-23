@@ -3,9 +3,20 @@ import { navlabels } from "../data/navlabels"
 import FriendMiniProfile from "./friends/FriendMiniProfileContainer"
 import { useSidebarContext } from "../SidebarContext"
 import { NavLink } from "react-router-dom"
+import axiosClient from "../axios-client"
+import { useAuth } from "../context/AuthProvider"
 
 export default function SidebarRigth() {
   const { toggle, close, isSmallOpen } = useSidebarContext()
+  const { setToken } = useAuth()
+  const onLogout = (ev) => {
+    ev.preventDefault()
+    axiosClient.post("/logout").then(() => {
+      // setUser({})
+      setToken(null)
+      // ;<Navigate to="/login" />
+    })
+  }
   return (
     <>
       <div className="flex flex-col gap-3 h-full px-3 py-4 overflow-y-auto bg-white  dark:bg-gray-800 font-MuseoModerno  ">
@@ -62,7 +73,7 @@ export default function SidebarRigth() {
             <a
               href="#"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-              onClick={close}
+              onClick={onLogout}
             >
               Sign out
             </a>

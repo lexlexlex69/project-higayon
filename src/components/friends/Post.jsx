@@ -11,6 +11,8 @@ export default function Post({ purpose }) {
           ? "w-[280px] h-[350px]"
           : purpose === "Profile Posts"
           ? "w-[220px] h-[290px]"
+          : purpose === "Preview Post"
+          ? "w-[450px] h-[520px]"
           : "w-[400px] h-[470px]"
       }  pt-6 bg-white rounded-md border-2 border-solid border-gray-800 font-MuseoModerno font-semibold text-lg shadow-[-15px_15px_1px_0px_#E8E8E8]`}
     >
