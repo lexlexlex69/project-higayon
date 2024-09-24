@@ -6,7 +6,7 @@ import axiosClient from "../../axios-client"
 export default function Login() {
   const usernameRef = useRef()
   const passwordRef = useRef()
-  const { setToken } = useAuth()
+  const { login } = useAuth()
 
   const onSubmit = (ev) => {
     ev.preventDefault()
@@ -15,23 +15,7 @@ export default function Login() {
       password: passwordRef.current.value,
     }
     // setErrors(null)
-    axiosClient
-      .post("/login", payload)
-      .then(({ data }) => {
-        // setUser(data.user)
-        setToken(data.token)
-      })
-      .catch((err) => {
-        //debugger;
-        const response = err.response
-        if (response && response.status === 422) {
-          if (response.data.errors) {
-            console.log(response.data.errors)
-          } else {
-            console.log({ email: [response.data.message] })
-          }
-        }
-      })
+    login(payload)
     // console.log(payload)
   }
   return (
@@ -55,7 +39,11 @@ export default function Login() {
         Login
       </button>
       <span className="">
-        Dont have an account? <Link className="underline">Sign up</Link> now.
+        Dont have an account?{" "}
+        <Link to="/signup" className="underline">
+          Sign up
+        </Link>{" "}
+        now.
       </span>
     </form>
   )

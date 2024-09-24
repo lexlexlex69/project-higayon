@@ -6,17 +6,10 @@ import { NavLink } from "react-router-dom"
 import axiosClient from "../axios-client"
 import { useAuth } from "../context/AuthProvider"
 
-export default function SidebarRigth() {
+export default function SidebarRigth({ user }) {
   const { toggle, close, isSmallOpen } = useSidebarContext()
-  const { setToken } = useAuth()
-  const onLogout = (ev) => {
-    ev.preventDefault()
-    axiosClient.post("/logout").then(() => {
-      // setUser({})
-      setToken(null)
-      // ;<Navigate to="/login" />
-    })
-  }
+  const { logout } = useAuth()
+
   return (
     <>
       <div className="flex flex-col gap-3 h-full px-3 py-4 overflow-y-auto bg-white  dark:bg-gray-800 font-MuseoModerno  ">
@@ -33,7 +26,7 @@ export default function SidebarRigth() {
               src="/passporte.jpg"
               alt="user photo"
             />
-            lecks
+            {user.username}
           </span>
           <ChevronDown size={30} />
         </button>
@@ -52,8 +45,8 @@ export default function SidebarRigth() {
           } fixed top-[4.5rem] right-5 z-[999] bg-white divide-y divide-gray-100 rounded-lg shadow-[-10px_10px_1px_0px_#4b4b4b1f] w-44 dark:bg-gray-700 dark:divide-gray-600 border-2 border-solid border-gray-500`}
         >
           <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div className="font-medium ">Lecks</div>
-            <div className="truncate text-navbarInactiveLink">name@.com</div>
+            <div className="font-medium ">{user.username}</div>
+            <div className="truncate text-navbarInactiveLink">{user.email}</div>
           </div>
           <ul
             className="py-2 text-sm text-gray-700 dark:text-gray-200"
@@ -73,7 +66,10 @@ export default function SidebarRigth() {
             <a
               href="#"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-              onClick={onLogout}
+              onClick={() => {
+                logout()
+                close()
+              }}
             >
               Sign out
             </a>
