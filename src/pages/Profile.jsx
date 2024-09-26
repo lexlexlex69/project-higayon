@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useLocation } from "react-router-dom"
 import { useAuth } from "../context/AuthProvider"
-import { useEffect, useRef, useState } from "react"
+import { useRef } from "react"
 
 export default function Profile() {
   const storageUrl = import.meta.env.VITE_STORAGE_URL
@@ -8,29 +8,22 @@ export default function Profile() {
   const location = useLocation()
   const isPostsPage = location.pathname.includes("posts")
   const { user, currentUser, updatePhoto } = useAuth()
-  const [userDetails, setUserDetails] = useState(null)
-  const testfetch = async () => {
+
+  const handleImageUpload = async () => {
+    const imagepath = image_pathRef.current.files[0] // Get the selected file
     try {
-      const userr = await currentUser()
-      setUserDetails(userr)
-      console.log(userr)
+      if (imagepath) {
+        const formData = new FormData()
+        formData.append("imagepath", imagepath) // Append the file to the form data
+        formData.append("_method", "PUT") // Append the file to the form data
+        await updatePhoto(formData)
+      }
+
+      await currentUser()
+      window.location.reload(false)
     } catch (e) {
       console.log(e)
     }
-  }
-  useEffect(() => {
-    testfetch()
-  }, [])
-  const handleImageUpload = async () => {
-    const imagepath = image_pathRef.current.files[0] // Get the selected file
-
-    if (imagepath) {
-      const formData = new FormData()
-      formData.append("imagepath", imagepath) // Append the file to the form data
-      formData.append("_method", "PUT") // Append the file to the form data
-      updatePhoto(formData)
-    }
-    testfetch()
   }
 
   return (
@@ -38,9 +31,7 @@ export default function Profile() {
       <div className=" h-[50%] flex flex-col items-center justify-center gap-16 font-MuseoModerno border-b-2">
         <div className="bg-white w-[400px] h-[160px] flex items-center px-6  gap-3 border-black border-2 rounded-xl">
           <div className="size-[130px] overflow-hidden rounded-full">
-            {userDetails && (
-              <img src={`${storageUrl}/${userDetails.imagepath}`} alt="" />
-            )}
+            {user && <img src={`${storageUrl}/${user.imagepath}`} alt="" />}
           </div>
           <div className="flex items-center flex-1 pl-4">
             <div className="flex flex-col gap-3">

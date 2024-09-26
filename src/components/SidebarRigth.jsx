@@ -1,14 +1,13 @@
 import { ChevronDown, UserRoundPlus } from "lucide-react"
-import { navlabels } from "../data/navlabels"
 import FriendMiniProfile from "./friends/FriendMiniProfileContainer"
 import { useSidebarContext } from "../SidebarContext"
 import { NavLink } from "react-router-dom"
-import axiosClient from "../axios-client"
 import { useAuth } from "../context/AuthProvider"
 
-export default function SidebarRigth({ user }) {
+export default function SidebarRigth() {
   const { toggle, close, isSmallOpen } = useSidebarContext()
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
+  const storageUrl = import.meta.env.VITE_STORAGE_URL
 
   return (
     <>
@@ -21,11 +20,13 @@ export default function SidebarRigth({ user }) {
           onClick={toggle}
         >
           <span className="flex items-center">
-            <img
-              className=" w-12 h-12 me-2 rounded-full object-cover border-dashed border-2 border-gray-400 p-1"
-              src="/passporte.jpg"
-              alt="user photo"
-            />
+            {user && (
+              <img
+                className=" w-12 h-12 me-2 rounded-full object-cover border-dashed border-2 border-gray-400 p-1"
+                src={`${storageUrl}/${user.imagepath}`}
+                alt="user photo"
+              />
+            )}
             {user.username}
           </span>
           <ChevronDown size={30} />

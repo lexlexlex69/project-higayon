@@ -11,7 +11,7 @@ export function SidebarProvider({ children }) {
 
   function toggle() {
     setIsSmallOpen((s) => !s)
-    console.log("toogle")
+    // console.log("toogle")
   }
 
   function close() {

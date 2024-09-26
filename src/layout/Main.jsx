@@ -13,8 +13,8 @@ export default function Main() {
   const location = useLocation()
   const isProfileRoute = location.pathname.includes("/profile")
 
-  const { token, user } = useAuth()
-  console.log(user[0])
+  const { token } = useAuth()
+  // console.log(user[0])
   if (!token) {
     return <Navigate to="/login" />
   }
@@ -36,7 +36,7 @@ export default function Main() {
         className={`z-40 w-72 h-screen ${isProfileRoute && "hidden"}`}
         aria-label="Sidebar"
       >
-        <SidebarRigth user={user} />
+        <SidebarRigth />
       </aside>
       {isPostPreviewOpen && <PostPreview />}
     </div>

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import axiosClient from "../axios-client"
 
 const StateContext = createContext({
@@ -16,6 +16,15 @@ export const ContextProvider = ({ children }) => {
   )
   // const [token, _setToken] = useState(123)
   const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN"))
+  // let num = 0
+  // const testUseEffect = () => {
+  //   num += 1
+  //   console.log(num)
+  // }
+
+  useEffect(() => {
+    currentUser()
+  }, [])
 
   const setUser = (user) => {
     _setUser(user)
@@ -24,6 +33,20 @@ export const ContextProvider = ({ children }) => {
     } else {
       localStorage.removeItem("USERS")
     }
+  }
+
+  async function currentUser() {
+    await axiosClient
+      .get("/currentUser")
+      .then(({ data }) => {
+        console.log("user", data)
+        setUser(data)
+        // setToken(data.token)
+      })
+      .catch((err) => {
+        //debugger;
+        console.log(err)
+      })
   }
 
   const setToken = (token) => {
@@ -36,7 +59,7 @@ export const ContextProvider = ({ children }) => {
   }
 
   async function login(payload) {
-    console.log(payload)
+    // console.log(payload)
     axiosClient
       .post("/login", payload)
       .then(({ data }) => {
@@ -83,32 +106,10 @@ export const ContextProvider = ({ children }) => {
     axiosClient.post("/updatePhoto", payload)
   }
 
-  async function currentUser() {
-    return axiosClient
-      .get("/currentUser")
-      .then(({ data }) => {
-        console.log(data)
-        return data
-        // setUser(data.user)
-        // setToken(data.token)
-        // window.location.href = "/login"
-        // console.log(data.user)
-      })
-      .catch((err) => {
-        //debugger;
-        const response = err.response
-        if (response && response.status === 422) {
-          if (response.data.errors) {
-            console.log(response.data.errors)
-          } else {
-            console.log({ email: [response.data.message] })
-          }
-        }
-      })
-  }
   const logout = () => {
     axiosClient.post("/logout").then(() => {
       setToken(null)
+      setUser(null)
     })
   }
 
