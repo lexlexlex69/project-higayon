@@ -2,6 +2,10 @@ import { NavLink, Outlet, useLocation, useParams } from "react-router-dom"
 import { useAuth } from "../context/AuthProvider"
 import { useEffect, useRef, useState } from "react"
 import axiosClient from "../axios-client"
+import {
+  checkProfileHooks,
+  followedUsersHook,
+} from "../components/friends/hooks/testuserfetch"
 
 export default function Profile() {
   const { userId } = useParams()
@@ -12,14 +16,27 @@ export default function Profile() {
   const isPostsPage = location.pathname.includes("posts")
   const { user, currentUser, updatePhoto } = useAuth()
   const [userDetails, setUserDetails] = useState(null)
+  const [ownProfile, setOwnProfile] = useState(null)
+  const [isFollowed, setIsFollowed] = useState(null)
 
   async function getUserDetails(userId) {
     const { data } = await axiosClient.get(`/user/${userId}`)
     setUserDetails(data)
     // console.log(data)
   }
+
+  async function checkProfile(userId) {
+    const data = await checkProfileHooks(userId)
+    setOwnProfile(data)
+
+    const followedUsersData = await followedUsersHook(user.id)
+
+    setIsFollowed(followedUsersData.some((user) => user["id"] == userId))
+  }
+
   useEffect(() => {
     getUserDetails(userId)
+    checkProfile(userId)
   }, [])
   const handleImageUpload = async () => {
     const imagepath = image_pathRef.current.files[0] // Get the selected file
@@ -40,11 +57,19 @@ export default function Profile() {
 
   return (
     <div className="flex flex-col h-screen px-10 pt-10 overflow-auto">
-      <div className=" h-[50%] flex flex-col items-center justify-center gap-16 font-MuseoModerno border-b-2">
+      <div className=" h-[50%] flex flex-col items-center  gap-16 font-MuseoModerno border-b-2">
         <div className="bg-white w-[400px] h-[160px] flex items-center px-6  gap-3 border-black border-2 rounded-xl">
           <div className="size-[130px] overflow-hidden rounded-full">
             {userDetails && (
-              <img src={`${storageUrl}/${userDetails.imagepath}`} alt="" />
+              <img
+                src={
+                  userDetails.imagepath
+                    ? `${storageUrl}/${userDetails.imagepath}`
+                    : "/emptyProfile.png"
+                }
+                className="h-full object-cover"
+                alt=""
+              />
             )}
           </div>
           {userDetails && (
@@ -81,6 +106,8 @@ export default function Profile() {
         </div>
         <input ref={image_pathRef} id="dropzone-file" type="file" />
         <button onClick={handleImageUpload}>Edit</button>
+        {ownProfile && <h1>own</h1>}
+        {!ownProfile ? isFollowed ? <h1>Unfollow</h1> : <h1>Follow</h1> : <></>}
         <div className="flex  gap-3">
           <NavLink
             to="/profile/:userId/posts"

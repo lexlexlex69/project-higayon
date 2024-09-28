@@ -3,21 +3,29 @@ import FriendMiniProfile from "./friends/FriendMiniProfileContainer"
 import { useSidebarContext } from "../SidebarContext"
 import { NavLink } from "react-router-dom"
 import { useAuth } from "../context/AuthProvider"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import {
+  followedUsersHook,
+  suggestedUsersHooks,
+} from "./friends/hooks/testuserfetch"
 
 export default function SidebarRigth() {
   const { toggle, close, isSmallOpen } = useSidebarContext()
   const { logout, user } = useAuth()
   const storageUrl = import.meta.env.VITE_STORAGE_URL
+  const [followedUsers, setFollowedUsers] = useState(null)
+  const [suggestedUsers, setSuggestedUsers] = useState(null)
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const data = await suggestedUsers()
+  useEffect(() => {
+    followDetails(user.id)
+  }, [])
 
-  //     console.log(data)
-  //   }
-  //   fetchData()
-  // }, [])
+  async function followDetails(id) {
+    const followedUsersData = await followedUsersHook(id)
+    setFollowedUsers(followedUsersData)
+    const suggestedUsersData = await suggestedUsersHooks(id)
+    setSuggestedUsers(suggestedUsersData)
+  }
 
   return (
     <>
@@ -33,7 +41,11 @@ export default function SidebarRigth() {
             {user && (
               <img
                 className=" w-12 h-12 me-2 rounded-full object-cover border-dashed border-2 border-gray-400 p-1"
-                src={`${storageUrl}/${user.imagepath}`}
+                src={
+                  user.imagepath
+                    ? `${storageUrl}/${user.imagepath}`
+                    : "/emptyProfile.png"
+                }
                 alt="user photo"
               />
             )}
@@ -86,8 +98,8 @@ export default function SidebarRigth() {
             </a>
           </div>
         </div>
-        <FriendMiniProfile title={"Friends"} />
-        <FriendMiniProfile title={"Suggested"} />
+        <FriendMiniProfile title={"Followed"} users={followedUsers} />
+        <FriendMiniProfile title={"Suggested"} users={suggestedUsers} />
       </div>
     </>
   )

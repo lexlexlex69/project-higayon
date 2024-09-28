@@ -6,19 +6,7 @@ import { useEffect, useState } from "react"
 import axiosClient from "../../axios-client"
 import { getUsers } from "./hooks/testuserfetch"
 
-export default function FriendMiniProfile({ title }) {
-  const [users, setUsers] = useState(null)
-
-  useEffect(() => {
-    fetchUsers()
-  }, [])
-
-  async function fetchUsers() {
-    const userss = await getUsers()
-    setUsers(userss)
-    // console.log(userss)
-  }
-
+export default function FriendMiniProfile({ title, users }) {
   return (
     <div id="friends" className="flex flex-col gap-3 mt-4">
       <span className="flex items-center justify-between">
