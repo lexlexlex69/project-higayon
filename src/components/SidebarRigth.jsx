@@ -3,11 +3,21 @@ import FriendMiniProfile from "./friends/FriendMiniProfileContainer"
 import { useSidebarContext } from "../SidebarContext"
 import { NavLink } from "react-router-dom"
 import { useAuth } from "../context/AuthProvider"
+import { useEffect } from "react"
 
 export default function SidebarRigth() {
   const { toggle, close, isSmallOpen } = useSidebarContext()
   const { logout, user } = useAuth()
   const storageUrl = import.meta.env.VITE_STORAGE_URL
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const data = await suggestedUsers()
+
+  //     console.log(data)
+  //   }
+  //   fetchData()
+  // }, [])
 
   return (
     <>
@@ -55,7 +65,7 @@ export default function SidebarRigth() {
           >
             <li>
               <NavLink
-                to="/profile"
+                to={`/profile/${user.id}`}
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                 onClick={close}
               >

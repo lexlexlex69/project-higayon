@@ -38,22 +38,22 @@ const router = createBrowserRouter([
         element: <AddPost />,
       },
       {
-        path: "/profile",
+        path: "/profile/:userId",
         element: <Profile />,
-        children: [
-          {
-            path: "/profile/posts",
-            element: <ProfilePosts />,
-          },
-          {
-            path: "/profile/activities",
-            element: <ProfileActivities />,
-          },
-          {
-            path: "/profile",
-            element: <Navigate to="/profile/posts/" replace />,
-          },
-        ],
+        // children: [
+        //   {
+        //     path: "/profile/:userId/posts",
+        //     element: <ProfilePosts />,
+        //   },
+        //   {
+        //     path: "/profile/:userId/activities",
+        //     element: <ProfileActivities />,
+        //   },
+        //   {
+        //     path: "/profile/:userId",
+        //     element: <Navigate to="/profile/:userId/posts" replace />,
+        //   },
+        // ],
       },
     ],
   },

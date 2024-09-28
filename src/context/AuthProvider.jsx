@@ -39,7 +39,7 @@ export const ContextProvider = ({ children }) => {
     await axiosClient
       .get("/currentUser")
       .then(({ data }) => {
-        console.log("user", data)
+        // console.log("user", data)
         setUser(data)
         // setToken(data.token)
       })
